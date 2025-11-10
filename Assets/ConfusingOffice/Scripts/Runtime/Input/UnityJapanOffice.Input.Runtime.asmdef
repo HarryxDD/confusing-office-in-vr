@@ -1,0 +1,22 @@
+{
+    "name": "UnityJapanOffice.Input.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.inputsystem",
+            "expression": "",
+            "define": "IS_INSTALL_INPUTSYSTEM_PKG"
+        }
+    ],
+    "noEngineReferences": false
+}

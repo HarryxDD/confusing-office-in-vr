@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5216d52cda05c1e44947bb1dc0b71dfb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Scripts/UI/SliderOptions.cs
+  uploadId: 701027

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 26963b9532ab3a5489aee9d656c1ced8
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Scripts/Runtime/Input/UnityJapanOffice.Input.Runtime.asmdef
+  uploadId: 701027

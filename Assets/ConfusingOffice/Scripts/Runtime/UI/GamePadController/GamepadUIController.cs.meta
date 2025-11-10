@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: b91e054cb0c4f8f4aab2d6d8572e4620
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Scripts/Runtime/UI/GamePadController/GamepadUIController.cs
+  uploadId: 701027

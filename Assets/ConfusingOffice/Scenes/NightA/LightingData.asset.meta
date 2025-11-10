@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 071398088b6009648ba83229f25cb6ba
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Scenes/NightA/LightingData.asset
+  uploadId: 701027

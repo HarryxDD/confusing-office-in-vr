@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: ed4572dba66e35e4da739aa54bc3ecf7
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Scripts/Runtime/UI/GamePadController/ControllerSelectUI.cs
+  uploadId: 701027

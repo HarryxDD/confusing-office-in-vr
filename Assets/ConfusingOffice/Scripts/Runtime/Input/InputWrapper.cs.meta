@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 001ab1d7ac5d93345a39d296f609195e
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Scripts/Runtime/Input/InputWrapper.cs
+  uploadId: 701027

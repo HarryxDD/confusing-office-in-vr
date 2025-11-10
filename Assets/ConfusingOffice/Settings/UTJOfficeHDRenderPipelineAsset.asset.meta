@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1b8a990fc6ee8c247baad463bb39e8c0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Settings/UTJOfficeHDRenderPipelineAsset.asset
+  uploadId: 701027

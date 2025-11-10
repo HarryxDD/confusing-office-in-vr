@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fd174b6585009a940942d5c722b1d450
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 36300000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Scenes/NoonA/OcclusionCullingData.asset
+  uploadId: 701027

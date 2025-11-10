@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0c93ecbca93b4db40bfdd587c6f75f4a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Scenes/EveningA/LightingData.asset
+  uploadId: 701027

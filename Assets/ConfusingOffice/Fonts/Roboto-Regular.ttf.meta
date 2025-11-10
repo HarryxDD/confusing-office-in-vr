@@ -1,0 +1,35 @@
+fileFormatVersion: 2
+guid: ada336300c0320540a8ef124c52e61b9
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Roboto
+  fontNames:
+  - Roboto
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 35feb6042bfeb2e469fd7979edcc79fb, type: 3}
+  - {fileID: 12800000, guid: 60a44485710592a4ab799a390864f2ab, type: 3}
+  - {fileID: 12800000, guid: 5e4be1b51b1efea4d9b59127ae59b2f8, type: 3}
+  - {fileID: 12800000, guid: 3acc1a5c27c1da34ba98228d8a63d7e6, type: 3}
+  - {fileID: 12800000, guid: 8aac93bd41b72404ea94ed55e0cc9a54, type: 3}
+  - {fileID: 12800000, guid: 97d05bbfa600ebe44a9e55d246b7f6c4, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 152800
+  packageName: UnityJapanOffice
+  packageVersion: 1.0.9
+  assetPath: Assets/UnityJapanOffice/Fonts/Roboto-Regular.ttf
+  uploadId: 701027
