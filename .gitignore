@@ -71,7 +71,8 @@ ehthumbs.db
 Thumbs.db
 
 # Large Unity Assets
-Assets/ConfusingOffice/
+Assets/UnityJapanOffice/
+Assets/UnityJapanOffice.meta
 Assets/Scenes/PilotStudy/*.exr
 Assets/Scenes/PilotStudy/Lightmap-*.png
 Assets/Scenes/PilotStudy/ReflectionProbe-*.exr
