@@ -41,6 +41,18 @@ A virtual reality office environment built with Unity and XR Interaction Toolkit
    - Install XR Interaction Toolkit
    - Install XR Plugin Management
 
+5. **Install Required Assets**
+   This project excludes large Unity Asset Store packages to keep the repository lightweight. You need to install them manually:
+
+   > **UnityJapanOffice** (~3.3 GB)
+   >
+   > - Download from Unity Asset Store: [UnityJapanOffice](https://assetstore.unity.com/packages/3d/environments/unityjapanoffice-152800?srsltid=AfmBOoqfsWgjF9WITM3KmFk8gZ7EG1eRJUp-VLJoeLVSKzkrVR05hXTo)
+   > - Import into `Assets/UnityJapanOffice/` folder
+
+6. **(Options) Rebake the lighting, If needed**
+   - Window → Rendering → Lighting
+   - Generate Lighting
+
 ### Building for Meta Quest
 
 1. File → Build Settings
