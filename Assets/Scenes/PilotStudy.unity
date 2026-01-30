@@ -9897,6 +9897,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 087d9bd09ef27f843957bb57bba0dc76, type: 3}
       insertIndex: -1
       addedObject: {fileID: 442440703}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 087d9bd09ef27f843957bb57bba0dc76, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 442440704}
   m_SourcePrefab: {fileID: 100100000, guid: 087d9bd09ef27f843957bb57bba0dc76, type: 3}
 --- !u!4 &391478996 stripped
 Transform:
@@ -11268,6 +11271,26 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+--- !u!114 &442440704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442440701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b638daac0cfa24cb57269575d6e4ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LSLPlacementZone
+  zoneName: Shelf01
+  zoneType: Shelf
+  streamName: ConfusingOffice.PlacementZones
+  streamType: Markers
+  useSharedOutlet: 1
+  trackEnterExit: 1
+  trackDwellTime: 1
+  logToConsole: 1
 --- !u!1 &452573465
 GameObject:
   m_ObjectHideFlags: 0
@@ -22526,6 +22549,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8253064077724394858, guid: d6d9b66a95531b14d955f2f4117ababe, type: 3}
   m_PrefabInstance: {fileID: 846845523}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &850714189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 850714191}
+  - component: {fileID: 850714190}
+  m_Layer: 0
+  m_Name: LSL_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &850714190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850714189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed5ea06abcdb1f4ca996e5cb05bf3c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LSLGrabPlaceLogger
+  streamName: ConfusingOffice.Interactions
+  streamType: Markers
+  autoFindInteractables: 1
+  trackedObjects: []
+  logToConsole: 1
+--- !u!4 &850714191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850714189}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.88135, y: 0.76343, z: 8.50665}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &857550361
 GameObject:
   m_ObjectHideFlags: 0
@@ -55748,6 +55820,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 087d9bd09ef27f843957bb57bba0dc76, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1970633654}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 087d9bd09ef27f843957bb57bba0dc76, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1970633655}
   m_SourcePrefab: {fileID: 100100000, guid: 087d9bd09ef27f843957bb57bba0dc76, type: 3}
 --- !u!4 &1970633651 stripped
 Transform:
@@ -55821,6 +55896,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 33.54905, y: 47.25713, z: 9.743834}
   m_Center: {x: -15.343789, y: -10.9838295, z: 4.3719153}
+--- !u!114 &1970633655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437618992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b638daac0cfa24cb57269575d6e4ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LSLPlacementZone
+  zoneName: Shelf01
+  zoneType: Shelf
+  streamName: ConfusingOffice.PlacementZones
+  streamType: Markers
+  useSharedOutlet: 1
+  trackEnterExit: 1
+  trackDwellTime: 1
+  logToConsole: 1
 --- !u!1001 &1990238084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64145,3 +64240,4 @@ SceneRoots:
   - {fileID: 42523877}
   - {fileID: 2076305796}
   - {fileID: 631065137}
+  - {fileID: 850714191}
