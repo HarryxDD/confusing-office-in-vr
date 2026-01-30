@@ -7,49 +7,49 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/UnityJapanOffice/Scenes/Base.unity
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/ConfusingOffice/Scenes/Base.unity
     guid: 7f62db489cfbb3c48b9401495a7a653f
   - enabled: 1
+    path: Assets/UnityJapanOffice/Scenes/Base.unity
+    guid: 7f62db489cfbb3c48b9401495a7a653f
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 55daccc09a3b69647bbab145b54a3ab3
   - enabled: 1
-    path: Assets/ConfusingOffice/Scenes/EveningA.unity
+    path: Assets/UnityJapanOffice/Scenes/EveningA.unity
     guid: 6a54c90b6c473cb48862062b765a26ac
   - enabled: 1
-    path: Assets/ConfusingOffice/Scenes/EveningB.unity
+    path: Assets/UnityJapanOffice/Scenes/EveningB.unity
     guid: 6e51415c66579e847bd2b4581df67294
   - enabled: 1
-    path: Assets/ConfusingOffice/Scenes/NoonA.unity
+    path: Assets/UnityJapanOffice/Scenes/NoonA.unity
     guid: 670f15f008c3a3f498fb2b30d26ddc90
   - enabled: 1
-    path: Assets/ConfusingOffice/Scenes/NoonB.unity
+    path: Assets/UnityJapanOffice/Scenes/NoonB.unity
     guid: 51de620cc2939144f8fe5838d3fceeb1
   - enabled: 1
-    path: Assets/ConfusingOffice/Scenes/NightA.unity
+    path: Assets/UnityJapanOffice/Scenes/NightA.unity
     guid: d6a67ba73d7125e4cae08cb79e920a5f
   - enabled: 1
-    path: Assets/ConfusingOffice/Scenes/NightB.unity
+    path: Assets/UnityJapanOffice/Scenes/NightB.unity
     guid: 6085043725c60594094703ba44e15e0b
   - enabled: 1
     path: Assets/UnityJapanOffice/Scenes/EveningA.unity
-    guid: 00000000000000000000000000000000
+    guid: 6a54c90b6c473cb48862062b765a26ac
   - enabled: 1
     path: Assets/UnityJapanOffice/Scenes/EveningB.unity
-    guid: 00000000000000000000000000000000
+    guid: 6e51415c66579e847bd2b4581df67294
   - enabled: 1
     path: Assets/UnityJapanOffice/Scenes/NoonA.unity
-    guid: 00000000000000000000000000000000
+    guid: 670f15f008c3a3f498fb2b30d26ddc90
   - enabled: 1
     path: Assets/UnityJapanOffice/Scenes/NoonB.unity
-    guid: 00000000000000000000000000000000
+    guid: 51de620cc2939144f8fe5838d3fceeb1
   - enabled: 1
     path: Assets/UnityJapanOffice/Scenes/NightA.unity
-    guid: 00000000000000000000000000000000
+    guid: d6a67ba73d7125e4cae08cb79e920a5f
   - enabled: 1
     path: Assets/UnityJapanOffice/Scenes/NightB.unity
-    guid: 00000000000000000000000000000000
+    guid: 6085043725c60594094703ba44e15e0b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
@@ -59,4 +59,5 @@ EditorBuildSettings:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 5dcc2603f77432c4b8f783205c89bc27, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1a4c68ca72a83449f938d669337cb305, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a9a6963505ddf7f4d886008c6dc86122, type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 69c8695c9929dd243ac6d85da6a047d2, type: 2}
   m_UseUCBPForAssetBundles: 0
