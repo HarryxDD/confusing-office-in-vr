@@ -39,24 +39,6 @@ public class PaperGrabbable : MonoBehaviour
             IsPlaced = true;
             PlacedTrayName = socket.gameObject.name;
         }
-        else
-        {
-            // Fallback: Check nearby colliders for tray
-            Collider[] nearby = Physics.OverlapSphere(transform.position, 0.3f);
-            foreach (var col in nearby)
-            {
-                if (col.name.Contains("Tray"))
-                {
-                    IsPlaced = true;
-                    PlacedTrayName = col.gameObject.name;
-                    
-                    // Snap to tray
-                    transform.position = col.transform.position + Vector3.up * 0.05f;
-                    GetComponent<Rigidbody>().isKinematic = true;
-                    break;
-                }
-            }
-        }
     }
     
     void OnDestroy()
