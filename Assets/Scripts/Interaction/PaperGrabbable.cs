@@ -27,17 +27,25 @@ public class PaperGrabbable : MonoBehaviour
     
     void OnReleased(SelectExitEventArgs args)
     {
-        // Check if released into a socket (tray)
-        CheckSocketPlacement();
+        // Check if released into a socket (tray) with a small delay
+        // This allows the socket to grab the object first
+        Invoke(nameof(CheckSocketPlacement), 0.1f);
     }
     
     void CheckSocketPlacement()
     {
-        XRSocketInteractor socket = GetComponentInParent<XRSocketInteractor>();
-        if (socket != null)
+        if (grabbable.interactorsSelecting.Count > 0)
         {
-            IsPlaced = true;
-            PlacedTrayName = socket.gameObject.name;
+            foreach (var interactor in grabbable.interactorsSelecting)
+            {
+                XRSocketInteractor socket = interactor as XRSocketInteractor;
+                if (socket != null)
+                {
+                    IsPlaced = true;
+                    PlacedTrayName = socket.gameObject.name;
+                    return;
+                }
+            }
         }
     }
     
