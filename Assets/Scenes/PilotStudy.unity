@@ -4018,10 +4018,10 @@ MonoBehaviour:
   paperPrefab: {fileID: 5988091301582021814, guid: 3209da85fd3ca764d9c5efc6def3f02a, type: 3}
   spawnPoint: {fileID: 1162561163}
   spawnHeight: 0.07
-  greenMaterial: {fileID: 2100000, guid: 77b9975dee1136a4097826afdfe0aba6, type: 2}
-  blueMaterial: {fileID: 2100000, guid: 54e87a428ad9e064fbbdb6a9b8a903b4, type: 2}
-  redMaterial: {fileID: 2100000, guid: b072d81121a9a05468bc8dd4e8f693dd, type: 2}
-  yellowMaterial: {fileID: 2100000, guid: d9994d2dcdaa5e14797b728eca0d9363, type: 2}
+  greenMaterial: {fileID: 2100000, guid: b2bd0333274ec8d46acb12d49b3fc3ba, type: 2}
+  blueMaterial: {fileID: 2100000, guid: 7380124ac1df08748a2fad12731d2b81, type: 2}
+  redMaterial: {fileID: 2100000, guid: 280b0d3e056ab364d95257d09ad46676, type: 2}
+  yellowMaterial: {fileID: 2100000, guid: a4ee787b5c6c1b44b9a45ccc3be7cb8d, type: 2}
 --- !u!114 &1594656002
 MonoBehaviour:
   m_ObjectHideFlags: 0
