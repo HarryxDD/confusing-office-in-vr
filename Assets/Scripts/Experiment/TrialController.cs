@@ -25,55 +25,31 @@ public class TrialController : MonoBehaviour
         SetupColorMapping(condition, config.taskSettings.colors);
         currentPapers = new List<GameObject>();
 
-        // Randomize spawn order
-        List<string> shuffledColors = new List<string>(config.taskSettings.colors);
-        ShuffleList(shuffledColors);
+        string paperColor = config.taskSettings.colors[Random.Range(0, config.taskSettings.colors.Count)];
 
-        // Run 4 papers per trial, using the shuffled color list
-        for (int paperNum = 0; paperNum < config.taskSettings.papersPerTrial; paperNum++)
-        {
-            yield return StartCoroutine(RunSinglePaper(sessionNumber, globalTrialNumber, paperNum + 1, shuffledColors[paperNum], config));
-        }
+        yield return StartCoroutine(RunSinglePaper(sessionNumber, globalTrialNumber, 1, paperColor, config));
 
-        // Now all papers are placed
-        int correctCount = 0;
-        foreach (GameObject paper in currentPapers)
-        {
-            PaperGrabbable grabbable = paper.GetComponent<PaperGrabbable>();
-            string paperColor = grabbable.PaperColor;
-            string placedTray = grabbable.PlacedTrayName;
-            string correctTray = currentColorMapping[paperColor];
 
-            if (placedTray.Contains(correctTray))
-            {
-                correctCount++;
-            }
-        }
-
-        bool isTrialCorrect = correctCount == config.taskSettings.papersPerTrial;
-
-        lslLogger.LogEvent($"TrialEnd|S{sessionNumber}|T{globalTrialNumber}|Result:{(isTrialCorrect ? "Correct" : "Incorrect")}|Score:{correctCount}/{config.taskSettings.papersPerTrial}");
+        lslLogger.LogEvent($"TrialEnd|S{sessionNumber}|T{globalTrialNumber}");
 
         // Find the last placed paper's tray position
-        Vector3 lastTrayPosition = Vector3.zero;
-        if (currentPapers.Count > 0)
-        {
-            PaperGrabbable lastPaper = currentPapers[currentPapers.Count - 1].GetComponent<PaperGrabbable>();
-            if (lastPaper != null && lastPaper.PlacedTrayName != null)
-            {
-                lastTrayPosition = lastPaper.transform.position;
-            }
-        }
+        // Vector3 lastTrayPosition = Vector3.zero;
+        // if (currentPapers.Count > 0)
+        // {
+        //     PaperGrabbable lastPaper = currentPapers[currentPapers.Count - 1].GetComponent<PaperGrabbable>();
+        //     if (lastPaper != null && lastPaper.PlacedTrayName != null)
+        //     {
+        //         lastTrayPosition = lastPaper.transform.position;
+        //     }
+        // }
 
         // Show feedback above the last paper position
-        yield return StartCoroutine(feedbackDisplay.ShowFeedback(isTrialCorrect, lastTrayPosition + Vector3.up * 0.05f, config.timing.headStillnessDuration));
+        // yield return StartCoroutine(feedbackDisplay.ShowFeedback(isTrialCorrect, lastTrayPosition + Vector3.up * 0.05f, config.timing.headStillnessDuration));
 
-        foreach (GameObject paper in currentPapers)
-        {
-            Destroy(paper);
-        }
-
-        currentPapers.Clear();
+        // foreach (GameObject paper in currentPapers)
+        // {
+        //     Destroy(paper);
+        // }
 
         yield return new WaitForSeconds(0.3f);
     }
@@ -125,8 +101,6 @@ public class TrialController : MonoBehaviour
 
     IEnumerator RunSinglePaper(int sessionNumber, int trialNumber, int paperNumber, string paperColor, ExperimentConfig config)
     {
-        // paperColor is now passed in to ensure all colors appear once per trial
-
         // Spawn
         GameObject paper = paperSpawner.SpawnPaper(paperColor);
         PaperGrabbable grabbable = paper.GetComponent<PaperGrabbable>();
@@ -148,8 +122,11 @@ public class TrialController : MonoBehaviour
 
         lslLogger.LogEvent($"PaperPlaced|S{sessionNumber}|T{trialNumber}|P{paperNumber}|PlacedIn:{placedTray}|Correct:{correctTray}|Result:{isCorrect}");
 
-        // // Clean up paper
-        // Destroy(paper, 0.5f);
+        Vector3 feedbackPosition = paper.transform.position + Vector3.up * 0.05f;
+        yield return StartCoroutine(feedbackDisplay.ShowFeedback(isCorrect, feedbackPosition, config.timing.headStillnessDuration));
+
+        // Clean up paper
+        Destroy(paper);
 
         yield return new WaitForSeconds(0.3f);
     }
