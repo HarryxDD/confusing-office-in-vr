@@ -27,33 +27,23 @@ public class PaperGrabbable : MonoBehaviour
     
     void OnReleased(SelectExitEventArgs args)
     {
-        // Check if released into a socket (tray)
-        CheckSocketPlacement();
+        // Check if released into a socket (tray) with a small delay
+        // This allows the socket to grab the object first
+        Invoke(nameof(CheckSocketPlacement), 0.1f);
     }
     
     void CheckSocketPlacement()
     {
-        XRSocketInteractor socket = GetComponentInParent<XRSocketInteractor>();
-        if (socket != null)
+        if (grabbable.interactorsSelecting.Count > 0)
         {
-            IsPlaced = true;
-            PlacedTrayName = socket.gameObject.name;
-        }
-        else
-        {
-            // Fallback: Check nearby colliders for tray
-            Collider[] nearby = Physics.OverlapSphere(transform.position, 0.3f);
-            foreach (var col in nearby)
+            foreach (var interactor in grabbable.interactorsSelecting)
             {
-                if (col.name.Contains("Tray"))
+                XRSocketInteractor socket = interactor as XRSocketInteractor;
+                if (socket != null)
                 {
                     IsPlaced = true;
-                    PlacedTrayName = col.gameObject.name;
-                    
-                    // Snap to tray
-                    transform.position = col.transform.position + Vector3.up * 0.05f;
-                    GetComponent<Rigidbody>().isKinematic = true;
-                    break;
+                    PlacedTrayName = socket.gameObject.name;
+                    return;
                 }
             }
         }
