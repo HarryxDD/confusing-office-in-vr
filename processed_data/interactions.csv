@@ -1,0 +1,8 @@
+timestamp,event_type,object_name,hand,pos_x,pos_y,pos_z,placement_zone,unity_time
+375.68071577720303,Grab,Document,UnknownHand,11.412,0.724,8.683,N/A,41.104
+385.5860302878406,Release,Document,UnknownHand,11.545,0.906,8.546,PaperTray (1),51.018
+385.5876394878423,Grab,Document,UnknownHand,11.545,0.906,8.546,N/A,51.018
+388.24935179070076,Grab,Document,UnknownHand,11.751,0.906,8.528,N/A,53.686
+388.2506496907022,Release,Document,UnknownHand,11.751,0.906,8.528,PaperTray (1),53.686
+390.8040221934443,Release,Document,UnknownHand,11.638,0.908,8.789,PaperTray (1),56.241
+390.8043090934446,Grab,Document,UnknownHand,11.638,0.908,8.789,N/A,56.241
