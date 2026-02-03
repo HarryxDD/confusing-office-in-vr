@@ -14,7 +14,7 @@
 
   "taskSettings": {
     "colors": ["Green", "Red", "Blue", "Yellow"],
-    "papersPerTrial": 4,
+    "papersPerTrial": 1,
     "trialsPerBlock": 6
   },
 

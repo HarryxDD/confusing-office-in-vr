@@ -34,7 +34,7 @@ public class ColorPaperSpawner : MonoBehaviour
     {
         // Instantiate paper at spawn point
         Vector3 spawnPos = spawnPoint.position + Vector3.up * spawnHeight;
-        GameObject paper = Instantiate(paperPrefab, spawnPos, Quaternion.identity);
+        GameObject paper = Instantiate(paperPrefab, spawnPos, Quaternion.Euler(0f, -90f, 0f));
 
         // Set material
         Transform a4Paper = paper.transform.Find("A4Paper");
@@ -46,8 +46,6 @@ public class ColorPaperSpawner : MonoBehaviour
                 renderer.material = colorMaterials[color];
             }
         }
-
-        paper.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
 
         // Set metadata
         PaperGrabbable grabbable = paper.GetComponent<PaperGrabbable>();
