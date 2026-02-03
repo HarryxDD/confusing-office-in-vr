@@ -15,20 +15,41 @@ public class FeedbackDisplay : MonoBehaviour
     [SerializeField] private AudioClip incorrectSound;
     
     [Header("Settings")]
-    [SerializeField] private float displayDuration = 2f;
-    [SerializeField] public float heightAboveTray = 0.3f; 
+    [SerializeField] public float heightAboveTray = 0f; 
     
     private AudioSource audioSource;
+    private Camera mainCamera;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        feedbackCanvas.enabled = false;
-    } 
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
+
+        mainCamera = Camera.main;
+
+        if (feedbackCanvas != null)
+        {
+            feedbackCanvas.renderMode = RenderMode.WorldSpace;
+            feedbackCanvas.enabled = false;
+        }
+    }
 
     public IEnumerator ShowFeedback(bool isCorrect, Vector3 trayPosition, float stillnessDuration = 0f)
     {
-        transform.position = trayPosition + Vector3.up * heightAboveTray;
+        // Move the Canvas GameObject itself, not this script's GameObject
+        Transform canvasTransform = feedbackCanvas.transform;
+        canvasTransform.position = trayPosition + Vector3.up * heightAboveTray;
+
+        if (mainCamera != null)
+        {
+            // Make canvas face the camera (looking back at the camera position)
+            canvasTransform.LookAt(mainCamera.transform.position, Vector3.up);
+        }
 
         // Show appropriate icon
         correctIcon.SetActive(isCorrect);
@@ -45,11 +66,12 @@ public class FeedbackDisplay : MonoBehaviour
         // Display
         feedbackCanvas.enabled = true;
 
-        // wait
-        yield return new WaitForSeconds(displayDuration);
-
-        // Show stillness instruction
-        instructionText.text = "Please remain still until the next trial begins.";
+        if (stillnessDuration > 0f)
+        {
+            // Show stillness instruction
+            instructionText.text = "Please remain still.";
+            yield return new WaitForSeconds(stillnessDuration);
+        }
 
         // Hide
         feedbackCanvas.enabled = false;
