@@ -9,14 +9,17 @@ public class FeedbackDisplay : MonoBehaviour
     [SerializeField] private GameObject correctIcon;
     [SerializeField] private GameObject incorrectIcon;
     [SerializeField] private TextMeshProUGUI instructionText;
-    
+    [SerializeField] private TextMeshProUGUI scanningText;
+
     [Header("Audio")]
     [SerializeField] private AudioClip correctSound;
     [SerializeField] private AudioClip incorrectSound;
-    
+
     [Header("Settings")]
-    [SerializeField] public float heightAboveTray = 0f; 
-    
+    [SerializeField] public float heightAboveTray = 0f;
+    [SerializeField] public float scanDurationMin = 2f;
+    [SerializeField] public float scanDurationMax = 2.5f;
+
     private AudioSource audioSource;
     private Camera mainCamera;
 
@@ -37,6 +40,10 @@ public class FeedbackDisplay : MonoBehaviour
             feedbackCanvas.renderMode = RenderMode.WorldSpace;
             feedbackCanvas.enabled = false;
         }
+
+        if (correctIcon != null) correctIcon.SetActive(false);
+        if (incorrectIcon != null) incorrectIcon.SetActive(false);
+        if (scanningText != null) scanningText.gameObject.SetActive(false);
     }
 
     public IEnumerator ShowFeedback(bool isCorrect, Vector3 trayPosition, float stillnessDuration = 0f)
@@ -51,6 +58,25 @@ public class FeedbackDisplay : MonoBehaviour
             canvasTransform.LookAt(mainCamera.transform.position, Vector3.up);
         }
 
+        correctIcon.SetActive(false);
+        incorrectIcon.SetActive(false);
+        instructionText.text = "";
+
+        feedbackCanvas.enabled = true;
+
+        if (scanningText != null)
+        {
+            scanningText.gameObject.SetActive(true);
+        }
+
+        float scanDelay = Random.Range(scanDurationMin, scanDurationMax);
+        yield return new WaitForSeconds(scanDelay);
+
+        if (scanningText != null)
+        {
+            scanningText.gameObject.SetActive(false);
+        }
+
         // Show appropriate icon
         correctIcon.SetActive(isCorrect);
         incorrectIcon.SetActive(!isCorrect);
@@ -63,13 +89,10 @@ public class FeedbackDisplay : MonoBehaviour
             audioSource.PlayOneShot(clip);
         }
 
-        // Display
-        feedbackCanvas.enabled = true;
-
         if (stillnessDuration > 0f)
         {
             // Show stillness instruction
-            instructionText.text = "Please remain still.";
+            instructionText.text = "Please remain still";
             yield return new WaitForSeconds(stillnessDuration);
         }
 

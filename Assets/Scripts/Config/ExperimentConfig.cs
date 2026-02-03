@@ -32,8 +32,6 @@ public class TimingSettings
 public class TaskSettings
 {
     public List<string> colors;
-    public int papersPerTrial;
-    public int trialsPerBlock;
 }
 
 [Serializable]

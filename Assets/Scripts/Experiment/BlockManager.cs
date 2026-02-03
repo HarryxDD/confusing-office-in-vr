@@ -17,10 +17,15 @@ public class BlockManager : MonoBehaviour
     {
         lslLogger.LogEvent($"BlockStart|S{sessionNumber}|B{blockNumber}|Trials:{conditions.Length}");
 
+        trialController.SetupBlockColorMapping(
+            conditions[0],
+            config.taskSettings.colors
+        );
+
         for (int i = 0; i < conditions.Length; i++)
         {
             int globalTrialNumber = startingTrialNumber + i;
-
+            
             yield return StartCoroutine(trialController.RunTrial(
                 sessionNumber,
                 blockNumber,

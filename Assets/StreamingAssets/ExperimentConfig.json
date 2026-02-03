@@ -8,14 +8,12 @@
   "timing": {
     "initialRestDuration": 5,
     "blockRestDuration": 25,
-    "headStillnessDuration": 4,
+    "headStillnessDuration": 3,
     "interSessionRestDuration": 25
   },
 
   "taskSettings": {
-    "colors": ["Green", "Red", "Blue", "Yellow"],
-    "papersPerTrial": 1,
-    "trialsPerBlock": 6
+    "colors": ["Green", "Red", "Blue", "Yellow"]
   },
 
   "session1": {
@@ -23,14 +21,7 @@
     "name": "Control",
     "totalTrials": 50,
     "blocks": [
-      {"trials": ["C","C","C","C","C","C"]},
-      {"trials": ["C","C","C","C","C","C"]},
-      {"trials": ["C","C","C","C","C","C"]},
-      {"trials": ["C","C","C","C","C","C"]},
-      {"trials": ["C","C","C","C","C","C"]},
-      {"trials": ["C","C","C","C","C","C"]},
-      {"trials": ["C","C","C","C","C","C"]},
-      {"trials": ["C","C","C","C","C","C"]},
+      {"trials": ["C","C","C","C","C","C","C"]},
       {"trials": ["C","C"]}
     ]
   },
@@ -40,20 +31,11 @@
     "name": "Mixed Conditions",
     "totalTrials": 80,
     "blocks": [
-      {"trials": ["C","C","X","X","X","C"], "note": ""},
-      {"trials": ["X","C","X","X","C","X"]},
-      {"trials": ["X","X","C","X","X","C"]},
-      {"trials": ["X","C","X","X","C","X"]},
-      {"trials": ["C","X","X","C","X","X"]},
-      {"trials": ["X","C","X","X","C","X"]},
-      {"trials": ["X","X","C","X","C","X"]},
-      {"trials": ["X","C","X","X","C","X"]},
-      {"trials": ["C","X","X","C","X","X"]},
-      {"trials": ["X","C","X","X","C","X"]},
-      {"trials": ["X","X","C","X","X","C"]},
-      {"trials": ["X","C","X","C","X","X"]},
-      {"trials": ["X","X","C","X","X","X"], "note": ""},
-      {"trials": ["X","X"], "note": ""}
+      {"trials": ["C","C","C","C","C","C"], "note": ""},
+      {"trials": ["X","X","X","X","X","X","X"]},
+      {"trials": ["X","X","X","X","X","X"]},
+      {"trials": ["X","X","X","X","X","X","X","X"]},
+      {"trials": ["C","C","C","C","C","C"]}
     ]
   }
 }

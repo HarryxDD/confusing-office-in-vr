@@ -11,6 +11,39 @@ public class TrialController : MonoBehaviour
 
     private Dictionary<string, string> currentColorMapping;
 
+    public void SetupBlockColorMapping(TrialCondition condition, List<string> colors)
+    {
+        currentColorMapping = new Dictionary<string, string>();
+
+        if (condition == TrialCondition.Control)
+        {
+            // Control: Direct matching
+            foreach (string color in colors)
+            {
+                currentColorMapping[color] = color;
+            }
+        }
+        else
+        {
+            // Confusion: Random mapping for entire block
+            List<string> avaiableTargets = new List<string>(colors);
+
+            foreach (string color in colors)
+            {
+                int randomIndex = Random.Range(0, avaiableTargets.Count);
+                currentColorMapping[color] = avaiableTargets[randomIndex];
+                avaiableTargets.RemoveAt(randomIndex);
+            }
+        }
+
+        string mapping = "";
+        foreach (var kvp in currentColorMapping)
+        {
+            mapping += $"{kvp.Key}->{kvp.Value} ";
+        }
+        lslLogger.LogEvent($"BlockColorMapping|{mapping.Trim()}");
+    }
+
     public IEnumerator RunTrial(
         int sessionNumber,
         int blockNumber,
@@ -23,17 +56,19 @@ public class TrialController : MonoBehaviour
 
         string paperColor = config.taskSettings.colors[Random.Range(0, config.taskSettings.colors.Count)];
 
-        string correctTray;
-        if (condition == TrialCondition.Control)
-        {
-            correctTray = paperColor;
-        }
-        else
-        {
-            List<string> availableTrays = new List<string>(config.taskSettings.colors);
-            availableTrays.Remove(paperColor);
-            correctTray = availableTrays[Random.Range(0, availableTrays.Count)];
-        }
+        // string correctTray;
+        // if (condition == TrialCondition.Control)
+        // {
+        //     correctTray = paperColor;
+        // }
+        // else
+        // {
+        //     List<string> availableTrays = new List<string>(config.taskSettings.colors);
+        //     availableTrays.Remove(paperColor);
+        //     correctTray = availableTrays[Random.Range(0, availableTrays.Count)];
+        // }
+
+        string correctTray = currentColorMapping[paperColor];
 
         lslLogger.LogEvent($"ColorMapping|Paper:{paperColor}->Tray:{correctTray}");
 
