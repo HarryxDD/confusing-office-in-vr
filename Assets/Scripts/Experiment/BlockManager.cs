@@ -11,18 +11,19 @@ public class BlockManager : MonoBehaviour
         int sessionNumber,
         int blockNumber,
         int startingTrialNumber,
-        TrialCondition[] conditions,
+        int totalTrials,
+        TrialCondition condition,
         ExperimentConfig config
     )
     {
-        lslLogger.LogEvent($"BlockStart|S{sessionNumber}|B{blockNumber}|Trials:{conditions.Length}");
+        lslLogger.LogEvent(LSLEventCode.BlockStart, $"S{sessionNumber}|B{blockNumber}|Condition:{condition}");
 
         trialController.SetupBlockColorMapping(
-            conditions[0],
+            condition,
             config.taskSettings.colors
         );
 
-        for (int i = 0; i < conditions.Length; i++)
+        for (int i = 0; i < totalTrials; i++)
         {
             int globalTrialNumber = startingTrialNumber + i;
             
@@ -30,11 +31,11 @@ public class BlockManager : MonoBehaviour
                 sessionNumber,
                 blockNumber,
                 globalTrialNumber,
-                conditions[i],
+                condition,
                 config
             ));
         }
 
-        lslLogger.LogEvent($"BlockEnd|S{sessionNumber}|B{blockNumber}");
+        lslLogger.LogEvent(LSLEventCode.BlockEnd, $"S{sessionNumber}|B{blockNumber}");
     }
 }

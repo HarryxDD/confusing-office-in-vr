@@ -19,23 +19,14 @@
   "session1": {
     "sessionNumber": 1,
     "name": "Control",
-    "totalTrials": 50,
-    "blocks": [
-      {"trials": ["C","C","C","C","C","C","C"]},
-      {"trials": ["C","C"]}
-    ]
+    "trialsPerBlock": 10,
+    "blocks": ["C", "C"]
   },
 
   "session2": {
     "sessionNumber": 2,
-    "name": "Mixed Conditions",
-    "totalTrials": 80,
-    "blocks": [
-      {"trials": ["C","C","C","C","C","C"], "note": ""},
-      {"trials": ["X","X","X","X","X","X","X"]},
-      {"trials": ["X","X","X","X","X","X"]},
-      {"trials": ["X","X","X","X","X","X","X","X"]},
-      {"trials": ["C","C","C","C","C","C"]}
-    ]
+    "name": "Confusion",
+    "trialsPerBlock": 10,
+    "blocks": ["X", "X"]
   }
 }

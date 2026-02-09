@@ -81,13 +81,39 @@ public class LSLExperimentLogger : MonoBehaviour
         }
     }
 
-    public void LogEvent(string eventData)
+    public void LogEvent(LSLEventCode eventCode, string metadata = "")
     {
         if (eventOutlet != null)
         {
-            eventSample[0] = $"{Time.time:F3}|{eventData}";
+            int code = (int)eventCode;
+            string data = string.IsNullOrEmpty(metadata) 
+                ? $"{code}" 
+                : $"{code}|{metadata}";
+
+            eventSample[0] = data;
             eventOutlet.push_sample(eventSample);
-            Debug.Log($"[LSL] {eventSample[0]}");
+            Debug.Log($"[{code}] | {metadata}");
         }
+    }
+
+    // Helper to convert color string to code
+    public LSLEventCode GetColorCode(string colorName)
+    {
+        switch (colorName.ToLower())
+        {
+            case "red": return LSLEventCode.ColorRed;
+            case "green": return LSLEventCode.ColorGreen;
+            case "blue": return LSLEventCode.ColorBlue;
+            case "yellow": return LSLEventCode.ColorYellow;
+            default: return LSLEventCode.ColorUnknown; // fallback
+        }
+    }
+    
+    // Helper to get condition code
+    public LSLEventCode GetConditionCode(TrialCondition condition)
+    {
+        return condition == TrialCondition.Control 
+            ? LSLEventCode.ConditionControl 
+            : LSLEventCode.ConditionConfusion;
     }
 }

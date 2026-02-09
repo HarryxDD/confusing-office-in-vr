@@ -20,6 +20,9 @@ public class FeedbackDisplay : MonoBehaviour
     [SerializeField] public float scanDurationMin = 2f;
     [SerializeField] public float scanDurationMax = 2.5f;
 
+    [SerializeField] private LSLExperimentLogger lslLogger;
+
+
     private AudioSource audioSource;
     private Camera mainCamera;
 
@@ -48,6 +51,7 @@ public class FeedbackDisplay : MonoBehaviour
 
     public IEnumerator ShowFeedback(bool isCorrect, Vector3 trayPosition, float stillnessDuration = 0f)
     {
+        lslLogger.LogEvent(LSLEventCode.FeedbackScanStart);
         // Move the Canvas GameObject itself, not this script's GameObject
         Transform canvasTransform = feedbackCanvas.transform;
         canvasTransform.position = trayPosition + Vector3.up * heightAboveTray;
@@ -77,6 +81,8 @@ public class FeedbackDisplay : MonoBehaviour
             scanningText.gameObject.SetActive(false);
         }
 
+        lslLogger.LogEvent(isCorrect ? LSLEventCode.FeedbackShowCorrect : LSLEventCode.FeedbackShowIncorrect);
+
         // Show appropriate icon
         correctIcon.SetActive(isCorrect);
         incorrectIcon.SetActive(!isCorrect);
@@ -101,5 +107,6 @@ public class FeedbackDisplay : MonoBehaviour
         correctIcon.SetActive(false);
         incorrectIcon.SetActive(false);
         instructionText.text = "";
+        lslLogger.LogEvent(LSLEventCode.FeedbackEnd);
     }
 }

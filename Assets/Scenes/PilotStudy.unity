@@ -4006,6 +4006,7 @@ MonoBehaviour:
   heightAboveTray: 0.2
   scanDurationMin: 2
   scanDurationMax: 2.5
+  lslLogger: {fileID: 1594655998}
 --- !u!114 &1594656001
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -41,7 +41,7 @@ public class TrialController : MonoBehaviour
         {
             mapping += $"{kvp.Key}->{kvp.Value} ";
         }
-        lslLogger.LogEvent($"BlockColorMapping|{mapping.Trim()}");
+        lslLogger.LogEvent(LSLEventCode.BlockMapping, mapping.Trim());
     }
 
     public IEnumerator RunTrial(
@@ -52,30 +52,18 @@ public class TrialController : MonoBehaviour
         ExperimentConfig config
     )
     {
-        lslLogger.LogEvent($"TrialStart|S{sessionNumber}|B{blockNumber}|T{globalTrialNumber}|{condition}");
+        lslLogger.LogEvent(LSLEventCode.TrialStart, $"S{sessionNumber}|B{blockNumber}|T{globalTrialNumber}|{condition}");
 
         string paperColor = config.taskSettings.colors[Random.Range(0, config.taskSettings.colors.Count)];
 
-        // string correctTray;
-        // if (condition == TrialCondition.Control)
-        // {
-        //     correctTray = paperColor;
-        // }
-        // else
-        // {
-        //     List<string> availableTrays = new List<string>(config.taskSettings.colors);
-        //     availableTrays.Remove(paperColor);
-        //     correctTray = availableTrays[Random.Range(0, availableTrays.Count)];
-        // }
-
         string correctTray = currentColorMapping[paperColor];
 
-        lslLogger.LogEvent($"ColorMapping|Paper:{paperColor}->Tray:{correctTray}");
+        lslLogger.LogEvent(LSLEventCode.TrialMapping, $"Paper:{paperColor}->Tray:{correctTray}");
 
         yield return StartCoroutine(RunSinglePaper(sessionNumber, globalTrialNumber, 1, paperColor, correctTray, config));
 
 
-        lslLogger.LogEvent($"TrialEnd|S{sessionNumber}|T{globalTrialNumber}");
+        lslLogger.LogEvent(LSLEventCode.TrialEnd, $"S{sessionNumber}|T{globalTrialNumber}");
 
         yield return new WaitForSeconds(0.3f);
     }
@@ -86,11 +74,11 @@ public class TrialController : MonoBehaviour
         GameObject paper = paperSpawner.SpawnPaper(paperColor);
         PaperGrabbable grabbable = paper.GetComponent<PaperGrabbable>();
 
-        lslLogger.LogEvent($"PaperSpawned|S{sessionNumber}|T{trialNumber}|P{paperNumber}|Color:{paperColor}");
+        lslLogger.LogEvent(LSLEventCode.PaperSpawn, $"S{sessionNumber}|T{trialNumber}|P{paperNumber}|Color:{paperColor}");
     
         // Wait for grab
         yield return new WaitUntil(() => grabbable.IsGrabbed);
-        lslLogger.LogEvent($"PaperGrabbed|S{sessionNumber}|T{trialNumber}|P{paperNumber}");
+        lslLogger.LogEvent(LSLEventCode.PaperGrab, $"S{sessionNumber}|T{trialNumber}|P{paperNumber}");
 
         // Wait for placement
         yield return new WaitUntil(() => grabbable.IsPlaced);
@@ -99,7 +87,7 @@ public class TrialController : MonoBehaviour
         string placedTray = grabbable.PlacedTrayName;
         bool isCorrect = placedTray.Contains(correctTray);
 
-        lslLogger.LogEvent($"PaperPlaced|S{sessionNumber}|T{trialNumber}|P{paperNumber}|PlacedIn:{placedTray}|Correct:{correctTray}|Result:{isCorrect}");
+        lslLogger.LogEvent(isCorrect ? LSLEventCode.PaperPlaceCorrect : LSLEventCode.PaperPlaceIncorrect, $"S{sessionNumber}|T{trialNumber}|P{paperNumber}|PlacedIn:{placedTray}|Correct:{correctTray}|Result:{isCorrect}");
 
         Vector3 feedbackPosition = paper.transform.position;
         yield return StartCoroutine(feedbackDisplay.ShowFeedback(isCorrect, feedbackPosition, config.timing.headStillnessDuration));
