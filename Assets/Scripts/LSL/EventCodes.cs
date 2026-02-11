@@ -29,6 +29,8 @@ public enum LSLEventCode
     FeedbackShowCorrect = 61,
     FeedbackShowIncorrect = 62,
     FeedbackEnd = 63,
+    LatencyCubeAppear = 64,    
+    LatencyCubeDisappear = 65,
     
     // Condition markers (70-79)
     ConditionControl = 70,

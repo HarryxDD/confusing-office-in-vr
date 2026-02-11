@@ -11,6 +11,10 @@ public class FeedbackDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI instructionText;
     [SerializeField] private TextMeshProUGUI scanningText;
 
+    [Header("Latency Testing Cube")]
+    [SerializeField] private GameObject latencyCube;  
+    [SerializeField] private float cubeOffsetFromFeedback = 0.3f; // Distance from feedback canvas
+
     [Header("Audio")]
     [SerializeField] private AudioClip correctSound;
     [SerializeField] private AudioClip incorrectSound;
@@ -21,7 +25,6 @@ public class FeedbackDisplay : MonoBehaviour
     [SerializeField] public float scanDurationMax = 2.5f;
 
     [SerializeField] private LSLExperimentLogger lslLogger;
-
 
     private AudioSource audioSource;
     private Camera mainCamera;
@@ -47,11 +50,19 @@ public class FeedbackDisplay : MonoBehaviour
         if (correctIcon != null) correctIcon.SetActive(false);
         if (incorrectIcon != null) incorrectIcon.SetActive(false);
         if (scanningText != null) scanningText.gameObject.SetActive(false);
+        
+        // Initialize cube as invisible
+        if (latencyCube != null)
+        {
+            latencyCube.SetActive(false);
+            Debug.Log("Latency testing cube initialized as invisible");
+        }
     }
 
     public IEnumerator ShowFeedback(bool isCorrect, Vector3 trayPosition, float stillnessDuration = 0f)
     {
         lslLogger.LogEvent(LSLEventCode.FeedbackScanStart);
+        
         // Move the Canvas GameObject itself, not this script's GameObject
         Transform canvasTransform = feedbackCanvas.transform;
         canvasTransform.position = trayPosition + Vector3.up * heightAboveTray;
@@ -82,11 +93,31 @@ public class FeedbackDisplay : MonoBehaviour
         }
 
         lslLogger.LogEvent(isCorrect ? LSLEventCode.FeedbackShowCorrect : LSLEventCode.FeedbackShowIncorrect);
-
+        // CRITICAL: Show feedback icon AND cube at EXACT same time
+     
         // Show appropriate icon
         correctIcon.SetActive(isCorrect);
         incorrectIcon.SetActive(!isCorrect);
         instructionText.text = "";
+
+        // NEW: Show latency cube at EXACT same moment as feedback
+        if (latencyCube != null)
+        {
+            // Position cube near feedback (offset to the side so it's visible)
+            Vector3 cubePosition = canvasTransform.position + canvasTransform.right * cubeOffsetFromFeedback;
+            latencyCube.transform.position = cubePosition;
+            
+            // Make cube face camera
+            latencyCube.transform.LookAt(mainCamera.transform.position, Vector3.up);
+            
+            // Show cube
+            latencyCube.SetActive(true);
+            
+            // Send LSL marker for cube appearance
+            lslLogger.LogEvent(LSLEventCode.LatencyCubeAppear);
+            
+            Debug.Log($"Latency cube shown at {Time.time}");
+        }
 
         // Play sound
         AudioClip clip = isCorrect ? correctSound : incorrectSound;
@@ -102,11 +133,22 @@ public class FeedbackDisplay : MonoBehaviour
             yield return new WaitForSeconds(stillnessDuration);
         }
 
-        // Hide
+          // Hide feedback AND cube together
+    
+        // Hide feedback
         feedbackCanvas.enabled = false;
         correctIcon.SetActive(false);
         incorrectIcon.SetActive(false);
         instructionText.text = "";
+        
+        // NEW: Hide cube
+        if (latencyCube != null)
+        {
+            latencyCube.SetActive(false);
+            lslLogger.LogEvent(LSLEventCode.LatencyCubeDisappear);
+            Debug.Log($"Latency cube hidden at {Time.time}");
+        }
+        
         lslLogger.LogEvent(LSLEventCode.FeedbackEnd);
     }
 }
