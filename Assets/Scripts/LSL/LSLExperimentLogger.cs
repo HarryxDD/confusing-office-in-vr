@@ -14,7 +14,7 @@ public class LSLExperimentLogger : MonoBehaviour
     
     private StreamOutlet eventOutlet;
     private StreamOutlet headTrackingOutlet;
-    private string[] eventSample = { "" };
+    private int[] eventSample = { 0 };
     private float[] headSample = new float[7];  // x,y,z,qx,qy,qz,qw
     
     private float headTimer = 0f;
@@ -90,9 +90,10 @@ public class LSLExperimentLogger : MonoBehaviour
                 ? $"{code}" 
                 : $"{code}|{metadata}";
 
-            eventSample[0] = data;
+            eventSample[0] = code;
             eventOutlet.push_sample(eventSample);
-            Debug.Log($"[{code}] | {metadata}");
+            // Debug.Log($"[{code}] | {metadata}");
+            Debug.Log("Event code: " + eventSample[0]);
         }
     }
 
