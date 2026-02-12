@@ -92,29 +92,31 @@ public class LSLExperimentLogger : MonoBehaviour
 
             eventSample[0] = code;
             eventOutlet.push_sample(eventSample);
-            // Debug.Log($"[{code}] | {metadata}");
-            Debug.Log("Event code: " + eventSample[0]);
+            Debug.Log($"[{code}] | {metadata}");
         }
     }
 
-    // Helper to convert color string to code
-    public LSLEventCode GetColorCode(string colorName)
+    public LSLEventCode GetPaperColorCode(string colorName)
     {
         switch (colorName.ToLower())
         {
-            case "red": return LSLEventCode.ColorRed;
-            case "green": return LSLEventCode.ColorGreen;
-            case "blue": return LSLEventCode.ColorBlue;
-            case "yellow": return LSLEventCode.ColorYellow;
-            default: return LSLEventCode.ColorUnknown; // fallback
+            case "red": return LSLEventCode.PaperRed;
+            case "green": return LSLEventCode.PaperGreen;
+            case "blue": return LSLEventCode.PaperBlue;
+            case "yellow": return LSLEventCode.PaperYellow;
+            default: return LSLEventCode.PaperUnknown; // fallback
         }
     }
-    
-    // Helper to get condition code
-    public LSLEventCode GetConditionCode(TrialCondition condition)
+
+    public LSLEventCode GetTrayColorCode(string colorName)
     {
-        return condition == TrialCondition.Control 
-            ? LSLEventCode.ConditionControl 
-            : LSLEventCode.ConditionConfusion;
+        switch (colorName.ToLower())
+        {
+            case "red": return LSLEventCode.TrayRed;
+            case "green": return LSLEventCode.TrayGreen;
+            case "blue": return LSLEventCode.TrayBlue;
+            case "yellow": return LSLEventCode.TrayYellow;
+            default: return LSLEventCode.TrayUnknown; // fallback
+        }
     }
 }

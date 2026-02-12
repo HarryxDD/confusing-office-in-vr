@@ -81,7 +81,7 @@ public class FeedbackDisplay : MonoBehaviour
             scanningText.gameObject.SetActive(false);
         }
 
-        lslLogger.LogEvent(isCorrect ? LSLEventCode.FeedbackShowCorrect : LSLEventCode.FeedbackShowIncorrect);
+        lslLogger.LogEvent(LSLEventCode.FeedbackShow);
 
         // Show appropriate icon
         correctIcon.SetActive(isCorrect);
