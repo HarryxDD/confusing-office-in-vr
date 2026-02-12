@@ -107,7 +107,7 @@ public class FeedbackDisplay : MonoBehaviour
             latencyCube.transform.position = cubePosition;
             
             // Make cube face camera
-            latencyCube.transform.LookAt(mainCamera.transform.position, Vector3.up);
+            // latencyCube.transform.LookAt(mainCamera.transform.position, Vector3.up);
             
             // Show cube
             latencyCube.SetActive(true);

@@ -50,9 +50,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/UnityJapanOffice/Scenes/NightB.unity
     guid: 6085043725c60594094703ba44e15e0b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PilotStudy.unity
     guid: 5cb9241020c907046bbd688054e60877
+  - enabled: 1
+    path: Assets/Scenes/PilotStudy 1.unity
+    guid: 89e7951edc91e4dc19754d5e6b2c9f60
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
