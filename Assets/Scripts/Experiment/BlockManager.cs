@@ -16,7 +16,12 @@ public class BlockManager : MonoBehaviour
         ExperimentConfig config
     )
     {
-        lslLogger.LogEvent(LSLEventCode.BlockStart, $"S{sessionNumber}|B{blockNumber}|Condition:{condition}");
+        lslLogger.LogEvent(
+            condition == TrialCondition.Control
+                ? LSLEventCode.ControlBlockStart
+                : LSLEventCode.ConfusionBlockStart,
+            $"S{sessionNumber}|B{blockNumber}|Condition:{condition}"
+        );
 
         trialController.SetupBlockColorMapping(
             condition,
@@ -26,7 +31,7 @@ public class BlockManager : MonoBehaviour
         for (int i = 0; i < totalTrials; i++)
         {
             int globalTrialNumber = startingTrialNumber + i;
-            
+
             yield return StartCoroutine(trialController.RunTrial(
                 sessionNumber,
                 blockNumber,

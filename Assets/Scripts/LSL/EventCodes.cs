@@ -9,9 +9,10 @@ public enum LSLEventCode
     SessionEnd = 21,
     
     // Block boundaries (30-39)
-    BlockStart = 30,
-    BlockEnd = 31,
-    BlockMapping = 32,  // Color mapping for block
+    ControlBlockStart = 30,
+    ConfusionBlockStart = 31,
+    BlockEnd = 32,
+    BlockMapping = 33,  // Color mapping for block
     
     // Trial boundaries (40-49)
     TrialStart = 40,
@@ -26,20 +27,20 @@ public enum LSLEventCode
     
     // Feedback events (60-69)
     FeedbackScanStart = 60,
-    FeedbackShowCorrect = 61,
-    FeedbackShowIncorrect = 62,
-    FeedbackEnd = 63,
-    LatencyCubeAppear = 64,    
-    LatencyCubeDisappear = 65,
-    
-    // Condition markers (70-79)
-    ConditionControl = 70,
-    ConditionConfusion = 71,
+    FeedbackShow = 61,
+    FeedbackEnd = 62,
+    LatencyCubeAppear = 63,    
+    LatencyCubeDisappear = 64,
     
     // Color markers (80-89)
-    ColorRed = 80,
-    ColorGreen = 81,
-    ColorBlue = 82,
-    ColorYellow = 83,
-    ColorUnknown = 84
+    PaperRed = 80,
+    PaperGreen = 81,
+    PaperBlue = 82,
+    PaperYellow = 83,
+    TrayRed = 84,
+    TrayGreen = 85,
+    TrayBlue = 86,
+    TrayYellow = 87,
+    PaperUnknown = 88,
+    TrayUnknown = 89
 }

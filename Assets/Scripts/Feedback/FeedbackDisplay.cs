@@ -92,9 +92,8 @@ public class FeedbackDisplay : MonoBehaviour
             scanningText.gameObject.SetActive(false);
         }
 
-        lslLogger.LogEvent(isCorrect ? LSLEventCode.FeedbackShowCorrect : LSLEventCode.FeedbackShowIncorrect);
-        // CRITICAL: Show feedback icon AND cube at EXACT same time
-     
+        lslLogger.LogEvent(LSLEventCode.FeedbackShow);
+
         // Show appropriate icon
         correctIcon.SetActive(isCorrect);
         incorrectIcon.SetActive(!isCorrect);

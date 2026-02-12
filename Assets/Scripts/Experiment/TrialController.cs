@@ -86,8 +86,16 @@ public class TrialController : MonoBehaviour
         // Check correctness
         string placedTray = grabbable.PlacedTrayName;
         bool isCorrect = placedTray.Contains(correctTray);
+        lslLogger.LogEvent(lslLogger.GetPaperColorCode(paperColor), $"PaperColor: {paperColor}");
+        lslLogger.LogEvent(lslLogger.GetTrayColorCode(placedTray), $"PlacedTrayColor: {placedTray.Replace("Tray", "")}");
+        lslLogger.LogEvent(lslLogger.GetTrayColorCode(correctTray), $"CorrectTrayColor: {correctTray}");
 
-        lslLogger.LogEvent(isCorrect ? LSLEventCode.PaperPlaceCorrect : LSLEventCode.PaperPlaceIncorrect, $"S{sessionNumber}|T{trialNumber}|P{paperNumber}|PlacedIn:{placedTray}|Correct:{correctTray}|Result:{isCorrect}");
+        lslLogger.LogEvent(
+            isCorrect
+                ? LSLEventCode.PaperPlaceCorrect
+                : LSLEventCode.PaperPlaceIncorrect,
+            $"S{sessionNumber}|T{trialNumber}|P{paperNumber}|PlacedIn:{placedTray}|Correct:{correctTray}|Result:{isCorrect}"
+        );
 
         Vector3 feedbackPosition = paper.transform.position;
         yield return StartCoroutine(feedbackDisplay.ShowFeedback(isCorrect, feedbackPosition, config.timing.headStillnessDuration));
