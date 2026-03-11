@@ -42,13 +42,13 @@ public class ExperimentManager : MonoBehaviour
 
     IEnumerator RunExperiment()
     {
-        lslLogger.LogEvent("ExperimentStart");
+        lslLogger.LogEvent(LSLEventCode.ExperimentStart, $"Participant:{participantID}");
 
         // Initial Rest
         currentState = ExperimentState.InitialRest;
         yield return StartCoroutine(restScreen.ShowRest(config.timing.initialRestDuration));
 
-        // Session 1 (50 trials, all control)
+        // Session 1
         currentState = ExperimentState.RunningSession1;
         yield return StartCoroutine(RunSession(config.session1));
 
@@ -56,44 +56,39 @@ public class ExperimentManager : MonoBehaviour
         currentState = ExperimentState.InterSessionRest;
         yield return StartCoroutine(restScreen.ShowRest(config.timing.interSessionRestDuration));
 
-        // Session 2 (80 trials, mixed conditions)
+        // Session 2
         currentState = ExperimentState.RunningSession2;
         yield return StartCoroutine(RunSession(config.session2));
 
         // Experiment Completed
         currentState = ExperimentState.Completed;
-        lslLogger.LogEvent("ExperimentEnd");
+        lslLogger.LogEvent(LSLEventCode.ExperimentEnd, $"Participant:{participantID}");
         yield return StartCoroutine(restScreen.ShowCompletionMessage());
     }
 
     IEnumerator RunSession(SessionConfig sessionConfig)
     {
         int sessionNumber = sessionConfig.sessionNumber;
-        lslLogger.LogEvent($"SessionStart|S{sessionNumber}|{sessionConfig.name}");
+        lslLogger.LogEvent(LSLEventCode.SessionStart, $"S{sessionNumber}|{sessionConfig.name}");
 
         int globalTrialNumber = 1;
         
         for (int blockNum = 0; blockNum < sessionConfig.blocks.Length; blockNum++)
         {
-            BlockConfig block = sessionConfig.blocks[blockNum];
-
-            // Convert trial strings to conditions
-            TrialCondition[] conditions = new TrialCondition[block.trials.Length];
-            for (int i = 0; i < block.trials.Length; i++)
-            {
-                conditions[i] = (block.trials[i] == "C") ? TrialCondition.Control : TrialCondition.Confusion;
-            }
+            string block = sessionConfig.blocks[blockNum];
+            TrialCondition condition = (block == "C") ? TrialCondition.Control : TrialCondition.Confusion;
 
             // Run block
             yield return StartCoroutine(blockManager.RunBlock(
                 sessionNumber,
                 blockNum + 1,
                 globalTrialNumber,
-                conditions,
+                sessionConfig.trialsPerBlock,
+                condition,
                 config
             ));
 
-            globalTrialNumber += block.trials.Length;
+            globalTrialNumber += block.Length;
 
             if (blockNum < sessionConfig.blocks.Length - 1)
             {
@@ -101,6 +96,6 @@ public class ExperimentManager : MonoBehaviour
             }
         }
 
-        lslLogger.LogEvent($"SessionEnd|S{sessionNumber}|{sessionConfig.name}");
+        lslLogger.LogEvent(LSLEventCode.SessionEnd, $"S{sessionNumber}|{sessionConfig.name}");
     }
 }

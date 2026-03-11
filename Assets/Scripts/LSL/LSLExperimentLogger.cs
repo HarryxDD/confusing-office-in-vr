@@ -14,7 +14,7 @@ public class LSLExperimentLogger : MonoBehaviour
     
     private StreamOutlet eventOutlet;
     private StreamOutlet headTrackingOutlet;
-    private string[] eventSample = { "" };
+    private int[] eventSample = { 0 };
     private float[] headSample = new float[7];  // x,y,z,qx,qy,qz,qw
     
     private float headTimer = 0f;
@@ -81,13 +81,42 @@ public class LSLExperimentLogger : MonoBehaviour
         }
     }
 
-    public void LogEvent(string eventData)
+    public void LogEvent(LSLEventCode eventCode, string metadata = "")
     {
         if (eventOutlet != null)
         {
-            eventSample[0] = $"{Time.time:F3}|{eventData}";
+            int code = (int)eventCode;
+            string data = string.IsNullOrEmpty(metadata) 
+                ? $"{code}" 
+                : $"{code}|{metadata}";
+
+            eventSample[0] = code;
             eventOutlet.push_sample(eventSample);
-            Debug.Log($"[LSL] {eventSample[0]}");
+            Debug.Log($"[{code}] | {metadata}");
+        }
+    }
+
+    public LSLEventCode GetPaperColorCode(string colorName)
+    {
+        switch (colorName.ToLower())
+        {
+            case "red": return LSLEventCode.PaperRed;
+            case "green": return LSLEventCode.PaperGreen;
+            case "blue": return LSLEventCode.PaperBlue;
+            case "yellow": return LSLEventCode.PaperYellow;
+            default: return LSLEventCode.PaperUnknown; // fallback
+        }
+    }
+
+    public LSLEventCode GetTrayColorCode(string colorName)
+    {
+        switch (colorName.ToLower())
+        {
+            case "red": return LSLEventCode.TrayRed;
+            case "green": return LSLEventCode.TrayGreen;
+            case "blue": return LSLEventCode.TrayBlue;
+            case "yellow": return LSLEventCode.TrayYellow;
+            default: return LSLEventCode.TrayUnknown; // fallback
         }
     }
 }

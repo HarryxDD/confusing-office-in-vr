@@ -32,8 +32,6 @@ public class TimingSettings
 public class TaskSettings
 {
     public List<string> colors;
-    public int papersPerTrial;
-    public int trialsPerBlock;
 }
 
 [Serializable]
@@ -41,15 +39,8 @@ public class SessionConfig
 {
     public int sessionNumber;
     public string name;
-    public int totalTrials;
-    public BlockConfig[] blocks;
-}
-
-[Serializable]
-public class BlockConfig
-{
-    public string[] trials;
-    public string note;
+    public int trialsPerBlock;
+    public string[] blocks;
 }
 
 public enum TrialCondition
