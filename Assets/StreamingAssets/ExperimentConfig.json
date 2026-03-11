@@ -19,14 +19,14 @@
   "session1": {
     "sessionNumber": 1,
     "name": "Control",
-    "trialsPerBlock": 10,
-    "blocks": ["C", "C"]
+    "trialsPerBlock": 20,
+    "blocks": ["C", "C", "C", "C", "C"]
   },
 
   "session2": {
     "sessionNumber": 2,
     "name": "Confusion",
-    "trialsPerBlock": 10,
-    "blocks": ["X", "X"]
+    "trialsPerBlock": 20,
+    "blocks": ["X", "X", "X", "X", "X"]
   }
 }

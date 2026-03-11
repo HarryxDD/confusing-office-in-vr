@@ -103,8 +103,8 @@ public class FeedbackDisplay : MonoBehaviour
         if (latencyCube != null)
         {
             // Position cube near feedback (offset to the side so it's visible)
-            Vector3 cubePosition = canvasTransform.position + canvasTransform.right * cubeOffsetFromFeedback;
-            latencyCube.transform.position = cubePosition;
+            // Vector3 cubePosition = canvasTransform.position + canvasTransform.right * cubeOffsetFromFeedback;
+            // latencyCube.transform.position = cubePosition;
             
             // Make cube face camera
             // latencyCube.transform.LookAt(mainCamera.transform.position, Vector3.up);
