@@ -29,7 +29,7 @@ public class ExperimentManager : MonoBehaviour
     {
         config = ExperimentConfigLoader.LoadConfig(configFilename);
 
-        if (configFilename == null)
+        if (config == null)
         {
             Debug.LogError("Experiment configuration file not found");
             enabled = false;
@@ -88,7 +88,7 @@ public class ExperimentManager : MonoBehaviour
                 config
             ));
 
-            globalTrialNumber += block.Length;
+            globalTrialNumber += sessionConfig.trialsPerBlock;
 
             if (blockNum < sessionConfig.blocks.Length - 1)
             {
