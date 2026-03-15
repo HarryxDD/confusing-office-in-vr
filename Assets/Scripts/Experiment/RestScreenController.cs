@@ -25,20 +25,22 @@ public class RestScreenController : MonoBehaviour
 
         // Show rest UI
         restCanvas.enabled = true;
-        messageText.text = "Rest Period";
+        messageText.text = "";
+        timerText.text = "";
+        // messageText.text = "Rest Period";
 
         // Countdown
         float remainingTime = duration;
         while (remainingTime > 0)
         {
-            timerText.text = FormatTime(remainingTime);
+            // timerText.text = FormatTime(remainingTime);
             remainingTime -= Time.deltaTime;
             yield return null;
         }
 
         // Fade from black
-        messageText.text = "Get Ready...";
-        timerText.text = "";
+        // messageText.text = "Get Ready...";
+        // timerText.text = "";
         yield return new WaitForSeconds(2f);
 
         yield return StartCoroutine(FadeFromBlack());

@@ -3498,7 +3498,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 25
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3643,7 +3643,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rest Period
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4053,6 +4053,8 @@ MonoBehaviour:
   incorrectIcon: {fileID: 574103442}
   instructionText: {fileID: 935862430}
   scanningText: {fileID: 1791034254}
+  latencyCube: {fileID: 0}
+  cubeOffsetFromFeedback: 0.3
   correctSound: {fileID: 8300000, guid: 13b4efebecd384848a2ed7bc63bb01c2, type: 3}
   incorrectSound: {fileID: 8300000, guid: 881748ef903087b4a981d71f66574ac6, type: 3}
   heightAboveTray: 0.2
