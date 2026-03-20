@@ -11,12 +11,14 @@ public class ExperimentManager : MonoBehaviour
     [Header("Height Adjustment")]
     [SerializeField] private Transform xrOriginRoot;
     [SerializeField] private Transform headCamera;
+    [SerializeField] private Transform recenterTarget;
     [SerializeField] private float keyboardHeightStep = 0.05f;
 
     [Header("References")]
     [SerializeField] private BlockManager blockManager;
     [SerializeField] private RestScreenController restScreen;
     [SerializeField] private LSLExperimentLogger lslLogger;
+    [SerializeField] private TrialController trialController;
 
     private ExperimentConfig config;
     private ExperimentState currentState;
@@ -43,6 +45,10 @@ public class ExperimentManager : MonoBehaviour
         }
 
         lslLogger.Initialize(config, participantID);
+
+        if (trialController == null)
+            trialController = FindFirstObjectByType<TrialController>();
+
         StartCoroutine(RunExperiment());
     }
 
@@ -50,6 +56,7 @@ public class ExperimentManager : MonoBehaviour
     {
         HandleKeyboardHeightAdjustment();
         HandleKeyboardRecenterInput();
+        HandleKeyboardPaperResetInput();
     }
 
     private void HandleKeyboardHeightAdjustment()
@@ -84,10 +91,19 @@ public class ExperimentManager : MonoBehaviour
         if (keyboard == null || !keyboard.rKey.wasPressedThisFrame)
             return;
 
-        RecenterToCurrentHeading();
+        RecenterToTarget();
     }
 
-    private void RecenterToCurrentHeading()
+    private void HandleKeyboardPaperResetInput()
+    {
+        var keyboard = Keyboard.current;
+        if (keyboard == null || !keyboard.pKey.wasPressedThisFrame)
+            return;
+
+        RequestPaperReset();
+    }
+
+    private void RecenterToTarget()
     {
         if (headCamera == null && Camera.main != null)
             headCamera = Camera.main.transform;
@@ -95,16 +111,35 @@ public class ExperimentManager : MonoBehaviour
         if (xrOriginRoot == null && headCamera != null)
             xrOriginRoot = headCamera.root;
 
-        if (xrOriginRoot == null || headCamera == null)
+        if (xrOriginRoot == null || headCamera == null || recenterTarget == null)
             return;
 
-        Vector3 flatForward = Vector3.ProjectOnPlane(headCamera.forward, Vector3.up);
-        if (flatForward.sqrMagnitude < 0.0001f)
+        Vector3 offset = headCamera.position - xrOriginRoot.position;
+        offset.y = 0f;
+        xrOriginRoot.position = recenterTarget.position - offset;
+
+        Vector3 targetForward = recenterTarget.forward;
+        targetForward.y = 0f;
+
+        Vector3 cameraForward = headCamera.forward;
+        cameraForward.y = 0f;
+
+        if (targetForward.sqrMagnitude < 0.0001f || cameraForward.sqrMagnitude < 0.0001f)
             return;
 
-        float currentYaw = Mathf.Atan2(flatForward.x, flatForward.z) * Mathf.Rad2Deg;
-        float yawDelta = -currentYaw + 90f;
-        xrOriginRoot.RotateAround(headCamera.position, Vector3.up, yawDelta);
+        float angle = Vector3.SignedAngle(cameraForward, targetForward, Vector3.up);
+        xrOriginRoot.RotateAround(headCamera.position, Vector3.up, angle);
+    }
+
+    private void RequestPaperReset()
+    {
+        if (trialController == null)
+            trialController = FindFirstObjectByType<TrialController>();
+
+        if (trialController == null)
+            return;
+
+        trialController.ResetCurrentPaperToSpawn();
     }
 
     IEnumerator RunExperiment()
