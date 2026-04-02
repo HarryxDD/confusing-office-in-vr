@@ -14,13 +14,19 @@ public class LSLExperimentLogger : MonoBehaviour
     
     private StreamOutlet eventOutlet;
     private StreamOutlet headTrackingOutlet;
-    private int[] eventSample = { 0 };
+    private string[] eventSample = { "" };
     private float[] headSample = new float[7];  // x,y,z,qx,qy,qz,qw
     
     private float headTimer = 0f;
 
     public void Initialize(ExperimentConfig config, string participantID)
     {
+        if (eventOutlet != null)
+        {
+            Debug.LogWarning("[LSL] Initialize called more than once. Existing outlet will be reused.");
+            return;
+        }
+
         // Event stream
         var hash = new Hash128();
         hash.Append(streamName);
@@ -90,15 +96,40 @@ public class LSLExperimentLogger : MonoBehaviour
                 ? $"{code}" 
                 : $"{code}|{metadata}";
 
-            eventSample[0] = code;
+            eventSample[0] = data;
             eventOutlet.push_sample(eventSample);
-            Debug.Log($"[{code}] | {metadata}");
+            Debug.Log($"[LSL] {data}");
         }
+    }
+
+    private static string NormalizeColor(string rawValue)
+    {
+        if (string.IsNullOrWhiteSpace(rawValue))
+        {
+            return string.Empty;
+        }
+
+        string value = rawValue.Trim().ToLower();
+
+        value = value
+            .Replace("(clone)", "")
+            .Replace("tray", "")
+            .Replace("paper", "")
+            .Replace("_", "")
+            .Replace("-", "")
+            .Replace(" ", "");
+
+        if (value.Contains("red")) return "red";
+        if (value.Contains("green")) return "green";
+        if (value.Contains("blue")) return "blue";
+        if (value.Contains("yellow")) return "yellow";
+
+        return value;
     }
 
     public LSLEventCode GetPaperColorCode(string colorName)
     {
-        switch (colorName.ToLower())
+        switch (NormalizeColor(colorName))
         {
             case "red": return LSLEventCode.PaperRed;
             case "green": return LSLEventCode.PaperGreen;
@@ -110,7 +141,7 @@ public class LSLExperimentLogger : MonoBehaviour
 
     public LSLEventCode GetTrayColorCode(string colorName)
     {
-        switch (colorName.ToLower())
+        switch (NormalizeColor(colorName))
         {
             case "red": return LSLEventCode.TrayRed;
             case "green": return LSLEventCode.TrayGreen;
