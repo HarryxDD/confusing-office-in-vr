@@ -1,5 +1,6 @@
 using UnityEngine;
 using LSL;
+using System;
 
 public class LSLExperimentLogger : MonoBehaviour
 {
@@ -98,7 +99,9 @@ public class LSLExperimentLogger : MonoBehaviour
 
     public LSLEventCode GetPaperColorCode(string colorName)
     {
-        switch (colorName.ToLower())
+        string normalized = NormalizeColorName(colorName);
+
+        switch (normalized)
         {
             case "red": return LSLEventCode.PaperRed;
             case "green": return LSLEventCode.PaperGreen;
@@ -110,7 +113,9 @@ public class LSLExperimentLogger : MonoBehaviour
 
     public LSLEventCode GetTrayColorCode(string colorName)
     {
-        switch (colorName.ToLower())
+        string normalized = NormalizeColorName(colorName);
+
+        switch (normalized)
         {
             case "red": return LSLEventCode.TrayRed;
             case "green": return LSLEventCode.TrayGreen;
@@ -118,5 +123,23 @@ public class LSLExperimentLogger : MonoBehaviour
             case "yellow": return LSLEventCode.TrayYellow;
             default: return LSLEventCode.TrayUnknown; // fallback
         }
+    }
+
+    private static string NormalizeColorName(string rawName)
+    {
+        if (string.IsNullOrWhiteSpace(rawName))
+        {
+            return string.Empty;
+        }
+
+        string value = rawName.Trim().ToLowerInvariant();
+
+        // Real scene object names can be like "GreenTray", "GreenTray(Clone)", etc.
+        if (value.Contains("red")) return "red";
+        if (value.Contains("green")) return "green";
+        if (value.Contains("blue")) return "blue";
+        if (value.Contains("yellow")) return "yellow";
+
+        return value;
     }
 }
