@@ -106,12 +106,12 @@ public class TrialController : MonoBehaviour
         lslLogger.LogEvent(lslLogger.GetTrayColorCode(placedTray), $"PlacedTrayColor: {placedTray.Replace("Tray", "")}");
         lslLogger.LogEvent(lslLogger.GetTrayColorCode(correctTray), $"CorrectTrayColor: {correctTray}");
 
-        lslLogger.LogEvent(
-            isCorrect
-                ? LSLEventCode.PaperPlaceCorrect
-                : LSLEventCode.PaperPlaceIncorrect,
-            $"S{sessionNumber}|T{trialNumber}|P{paperNumber}|PlacedIn:{placedTray}|Correct:{correctTray}|Result:{isCorrect}"
-        );
+        // lslLogger.LogEvent(
+        //     isCorrect
+        //         ? LSLEventCode.CorrectFeedbackShow
+        //         : LSLEventCode.IncorrectFeedbackShow,
+        //     $"S{sessionNumber}|T{trialNumber}|P{paperNumber}|PlacedIn:{placedTray}|Correct:{correctTray}|Result:{isCorrect}"
+        // );
 
         Vector3 feedbackPosition = paper.transform.position;
         yield return StartCoroutine(feedbackDisplay.ShowFeedback(isCorrect, feedbackPosition, config.timing.headStillnessDuration));

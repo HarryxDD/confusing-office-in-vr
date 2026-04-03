@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 26556766}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.094, y: -0.288, z: 0}
+  m_LocalPosition: {x: 0.094, y: 1.028, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4112,7 +4112,6 @@ MonoBehaviour:
   paperPrefab: {fileID: 5988091301582021814, guid: 3209da85fd3ca764d9c5efc6def3f02a, type: 3}
   spawnPoint: {fileID: 1162561163}
   spawnHeight: 0.07
-  debugPaperResetLogs: 0
   greenMaterial: {fileID: 2100000, guid: b2bd0333274ec8d46acb12d49b3fc3ba, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7380124ac1df08748a2fad12731d2b81, type: 2}
   redMaterial: {fileID: 2100000, guid: 280b0d3e056ab364d95257d09ad46676, type: 2}
@@ -4132,7 +4131,7 @@ MonoBehaviour:
   paperSpawner: {fileID: 1594656001}
   feedbackDisplay: {fileID: 1594656000}
   lslLogger: {fileID: 1594655998}
-  debugPaperResetLogs: 0
+  currentPaperRuntime: {fileID: 0}
 --- !u!114 &1594656003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4165,7 +4164,6 @@ MonoBehaviour:
   headCamera: {fileID: 754901115}
   recenterTarget: {fileID: 26556767}
   keyboardHeightStep: 0.05
-  debugRecenterLogs: 1
   blockManager: {fileID: 1594656003}
   restScreen: {fileID: 1594655999}
   lslLogger: {fileID: 1594655998}

@@ -22,15 +22,15 @@ public enum LSLEventCode
     // Stimulus events (50-59)
     PaperSpawn = 50,
     PaperGrab = 51,
-    PaperPlaceCorrect = 52,
-    PaperPlaceIncorrect = 53,
     
     // Feedback events (60-69)
     FeedbackScanStart = 60,
-    FeedbackShow = 61,
-    FeedbackEnd = 62,
-    LatencyCubeAppear = 63,    
-    LatencyCubeDisappear = 64,
+    // FeedbackShow = 61,
+    CorrectFeedbackShow = 61,
+    IncorrectFeedbackShow = 62,
+    FeedbackEnd = 63,
+    LatencyCubeAppear = 64,    
+    LatencyCubeDisappear = 65,
     
     // Color markers (80-89)
     PaperRed = 80,

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class ExperimentManager : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class ExperimentManager : MonoBehaviour
         HandleKeyboardHeightAdjustment();
         HandleKeyboardRecenterInput();
         HandleKeyboardPaperResetInput();
+        HandleKeyboardExperimentRestartInput();
     }
 
     private void HandleKeyboardHeightAdjustment()
@@ -101,6 +103,15 @@ public class ExperimentManager : MonoBehaviour
             return;
 
         RequestPaperReset();
+    }
+
+    private void HandleKeyboardExperimentRestartInput()
+    {
+        var keyboard = Keyboard.current;
+        if (keyboard == null || !keyboard.zKey.wasPressedThisFrame)
+            return;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void RecenterToTarget()
