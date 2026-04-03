@@ -20,11 +20,14 @@ public class RestScreenController : MonoBehaviour
 
     public IEnumerator ShowRest(float duration)
     {
+        restCanvas.enabled = true;
+        messageText.text = "";
+        timerText.text = "";
+
         // Fade to black
         yield return StartCoroutine(FadeToBlack());
 
         // Show rest UI
-        restCanvas.enabled = true;
         messageText.text = "Please rest and keep still";
         timerText.text = $"Time Remaining: {FormatTime(duration)}";
 
