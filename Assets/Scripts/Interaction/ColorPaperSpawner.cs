@@ -58,4 +58,20 @@ public class ColorPaperSpawner : MonoBehaviour
 
         return paper;
     }
+
+    public void ResetPaperToSpawn(GameObject paper)
+    {
+        if (paper == null || spawnPoint == null)
+            return;
+
+        Rigidbody rb = paper.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        paper.transform.position = spawnPoint.position + Vector3.up * spawnHeight;
+        paper.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+    }
 }

@@ -10,6 +10,20 @@ public class TrialController : MonoBehaviour
     [SerializeField] private LSLExperimentLogger lslLogger;
 
     private Dictionary<string, string> currentColorMapping;
+    private GameObject currentPaper;
+    [SerializeField] private GameObject currentPaperRuntime;
+
+    public void ResetCurrentPaperToSpawn()
+    {
+        if (currentPaper == null)
+            return;
+
+        PaperGrabbable grabbable = currentPaper.GetComponent<PaperGrabbable>();
+        if (grabbable != null && grabbable.IsGrabbed)
+            return;
+
+        paperSpawner.ResetPaperToSpawn(currentPaper);
+    }
 
     public void SetupBlockColorMapping(TrialCondition condition, List<string> colors)
     {
@@ -72,6 +86,8 @@ public class TrialController : MonoBehaviour
     {
         // Spawn
         GameObject paper = paperSpawner.SpawnPaper(paperColor);
+        currentPaper = paper;
+        currentPaperRuntime = paper;
         PaperGrabbable grabbable = paper.GetComponent<PaperGrabbable>();
 
         lslLogger.LogEvent(LSLEventCode.PaperSpawn, $"S{sessionNumber}|T{trialNumber}|P{paperNumber}|Color:{paperColor}");
@@ -90,17 +106,19 @@ public class TrialController : MonoBehaviour
         lslLogger.LogEvent(lslLogger.GetTrayColorCode(placedTray), $"PlacedTrayColor: {placedTray.Replace("Tray", "")}");
         lslLogger.LogEvent(lslLogger.GetTrayColorCode(correctTray), $"CorrectTrayColor: {correctTray}");
 
-        lslLogger.LogEvent(
-            isCorrect
-                ? LSLEventCode.PaperPlaceCorrect
-                : LSLEventCode.PaperPlaceIncorrect,
-            $"S{sessionNumber}|T{trialNumber}|P{paperNumber}|PlacedIn:{placedTray}|Correct:{correctTray}|Result:{isCorrect}"
-        );
+        // lslLogger.LogEvent(
+        //     isCorrect
+        //         ? LSLEventCode.CorrectFeedbackShow
+        //         : LSLEventCode.IncorrectFeedbackShow,
+        //     $"S{sessionNumber}|T{trialNumber}|P{paperNumber}|PlacedIn:{placedTray}|Correct:{correctTray}|Result:{isCorrect}"
+        // );
 
         Vector3 feedbackPosition = paper.transform.position;
         yield return StartCoroutine(feedbackDisplay.ShowFeedback(isCorrect, feedbackPosition, config.timing.headStillnessDuration));
 
         // Clean up paper
+        currentPaper = null;
+        currentPaperRuntime = null;
         Destroy(paper);
 
         yield return new WaitForSeconds(0.3f);
