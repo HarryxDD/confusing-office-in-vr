@@ -6,6 +6,8 @@ public class LSLExperimentLogger : MonoBehaviour
     [Header("Stream Configuration")]
     [SerializeField] private string streamName = "ConfusingOffice.Experiment";
     [SerializeField] private string streamType = "Markers";
+    [SerializeField] private string eventSourceId = "ConfusingOffice.Experiment.Source";
+    [SerializeField] private string headSourceId = "ConfusingOffice.Experiment.Head";
     
     [Header("Head Tracking")]
     [SerializeField] private bool enableHeadTracking = false;
@@ -28,17 +30,13 @@ public class LSLExperimentLogger : MonoBehaviour
         }
 
         // Event stream
-        var hash = new Hash128();
-        hash.Append(streamName);
-        hash.Append(System.DateTime.Now.ToString());
-
         StreamInfo eventInfo = new StreamInfo(
             streamName,
             streamType,
             1,
             LSL.LSL.IRREGULAR_RATE,
-            channel_format_t.cf_string,
-            hash.ToString()
+            channel_format_t.cf_int32,
+            eventSourceId
         );
 
         eventInfo.desc().append_child_value("ExperimentName", config.experimentInfo.name);
@@ -57,7 +55,7 @@ public class LSLExperimentLogger : MonoBehaviour
                 7,
                 headTrackingRate,
                 channel_format_t.cf_float32,
-                hash.ToString() + "_head"
+                headSourceId
             );
             
             headTrackingOutlet = new StreamOutlet(headInfo);
