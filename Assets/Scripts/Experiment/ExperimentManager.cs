@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class ExperimentManager : MonoBehaviour
 {
@@ -23,6 +22,7 @@ public class ExperimentManager : MonoBehaviour
 
     private ExperimentConfig config;
     private ExperimentState currentState;
+    private Coroutine experimentRoutine;
 
     public enum ExperimentState
     {
@@ -45,12 +45,22 @@ public class ExperimentManager : MonoBehaviour
             return;
         }
 
+        if (lslLogger == null)
+            lslLogger = FindFirstObjectByType<LSLExperimentLogger>();
+
+        if (lslLogger == null)
+        {
+            Debug.LogError("LSLExperimentLogger not found in scene.");
+            enabled = false;
+            return;
+        }
+
         lslLogger.Initialize(config, participantID);
 
         if (trialController == null)
             trialController = FindFirstObjectByType<TrialController>();
 
-        StartCoroutine(RunExperiment());
+        StartExperimentRoutine();
     }
 
     void Update()
@@ -111,7 +121,40 @@ public class ExperimentManager : MonoBehaviour
         if (keyboard == null || !keyboard.zKey.wasPressedThisFrame)
             return;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SoftResetExperiment();
+    }
+
+    private void StartExperimentRoutine()
+    {
+        if (experimentRoutine != null)
+            StopCoroutine(experimentRoutine);
+
+        experimentRoutine = StartCoroutine(RunExperiment());
+    }
+
+    private void SoftResetExperiment()
+    {
+        StopAllCoroutines();
+
+        if (restScreen != null)
+            restScreen.ForceHide();
+
+        if (trialController != null)
+            trialController.ResetForNewExperiment();
+
+        currentState = ExperimentState.NotStarted;
+
+        if (config == null)
+            config = ExperimentConfigLoader.LoadConfig(configFilename);
+
+        if (config == null)
+        {
+            Debug.LogError("Experiment configuration file not found");
+            enabled = false;
+            return;
+        }
+
+        StartExperimentRoutine();
     }
 
     private void RecenterToTarget()

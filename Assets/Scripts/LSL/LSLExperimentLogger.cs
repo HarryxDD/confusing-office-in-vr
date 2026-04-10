@@ -6,6 +6,8 @@ public class LSLExperimentLogger : MonoBehaviour
     [Header("Stream Configuration")]
     [SerializeField] private string streamName = "ConfusingOffice.Experiment";
     [SerializeField] private string streamType = "Markers";
+    [SerializeField] private string eventSourceId = "ConfusingOffice.Experiment.Source";
+    [SerializeField] private string headSourceId = "ConfusingOffice.Experiment.Head";
     
     [Header("Head Tracking")]
     [SerializeField] private bool enableHeadTracking = false;
@@ -21,18 +23,20 @@ public class LSLExperimentLogger : MonoBehaviour
 
     public void Initialize(ExperimentConfig config, string participantID)
     {
-        // Event stream
-        var hash = new Hash128();
-        hash.Append(streamName);
-        hash.Append(System.DateTime.Now.ToString());
+        if (eventOutlet != null)
+        {
+            Debug.LogWarning("[LSL] Initialize called more than once. Existing outlet will be reused.");
+            return;
+        }
 
+        // Event stream
         StreamInfo eventInfo = new StreamInfo(
             streamName,
             streamType,
             1,
             LSL.LSL.IRREGULAR_RATE,
-            channel_format_t.cf_string,
-            hash.ToString()
+            channel_format_t.cf_int32,
+            eventSourceId
         );
 
         eventInfo.desc().append_child_value("ExperimentName", config.experimentInfo.name);
@@ -51,7 +55,7 @@ public class LSLExperimentLogger : MonoBehaviour
                 7,
                 headTrackingRate,
                 channel_format_t.cf_float32,
-                hash.ToString() + "_head"
+                headSourceId
             );
             
             headTrackingOutlet = new StreamOutlet(headInfo);
@@ -92,13 +96,38 @@ public class LSLExperimentLogger : MonoBehaviour
 
             eventSample[0] = code;
             eventOutlet.push_sample(eventSample);
-            Debug.Log($"[{code}] | {metadata}");
+            Debug.Log($"[LSL] {data}");
         }
+    }
+
+    private static string NormalizeColor(string rawValue)
+    {
+        if (string.IsNullOrWhiteSpace(rawValue))
+        {
+            return string.Empty;
+        }
+
+        string value = rawValue.Trim().ToLower();
+
+        value = value
+            .Replace("(clone)", "")
+            .Replace("tray", "")
+            .Replace("paper", "")
+            .Replace("_", "")
+            .Replace("-", "")
+            .Replace(" ", "");
+
+        if (value.Contains("red")) return "red";
+        if (value.Contains("green")) return "green";
+        if (value.Contains("blue")) return "blue";
+        if (value.Contains("yellow")) return "yellow";
+
+        return value;
     }
 
     public LSLEventCode GetPaperColorCode(string colorName)
     {
-        switch (colorName.ToLower())
+        switch (NormalizeColor(colorName))
         {
             case "red": return LSLEventCode.PaperRed;
             case "green": return LSLEventCode.PaperGreen;
@@ -110,7 +139,7 @@ public class LSLExperimentLogger : MonoBehaviour
 
     public LSLEventCode GetTrayColorCode(string colorName)
     {
-        switch (colorName.ToLower())
+        switch (NormalizeColor(colorName))
         {
             case "red": return LSLEventCode.TrayRed;
             case "green": return LSLEventCode.TrayGreen;

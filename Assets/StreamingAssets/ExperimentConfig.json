@@ -6,7 +6,7 @@
   },
 
   "timing": {
-    "initialRestDuration": 5,
+    "initialRestDuration": 120,
     "blockRestDuration": 25,
     "headStillnessDuration": 3,
     "interSessionRestDuration": 25

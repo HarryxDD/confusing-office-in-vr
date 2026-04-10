@@ -25,6 +25,16 @@ public class TrialController : MonoBehaviour
         paperSpawner.ResetPaperToSpawn(currentPaper);
     }
 
+    public void ResetForNewExperiment()
+    {
+        if (currentPaper != null)
+        {
+            Destroy(currentPaper);
+            currentPaper = null;
+            currentPaperRuntime = null;
+        }
+    }
+
     public void SetupBlockColorMapping(TrialCondition condition, List<string> colors)
     {
         currentColorMapping = new Dictionary<string, string>();
