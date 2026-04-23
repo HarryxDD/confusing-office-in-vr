@@ -30,6 +30,7 @@ A virtual reality office environment built with Unity and XR Interaction Toolkit
    - Add project from disk
    - Select the cloned folder
    - Wait for Unity to import all assets
+   - Bake the light
 
 3. **Install XR packages** (if prompted):
    - Window → Package Manager
